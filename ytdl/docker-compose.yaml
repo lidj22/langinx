@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+
+  web:
+    build:
+      context: web
+      dockerfile: Dockerfile
+    restart: "unless-stopped"
+    container_name: web
+    ports:
+      - 443:443
+    volumes:
+      - /certs/staging:/certs/staging:ro
+
+  ytdl-material:
+    image: tzahi12345/youtubedl-material:4.3.2
+    container_name: ytdl-material
+    environment: 
+      ytdl_mongodb_connection_string: 'mongodb://ytdl-db:27017'
+      ytdl_use_local_db: 'false'
+      write_ytdl_config: 'true'
+    restart: always
+    depends_on:
+      - ytdl-db
+
+  ytdl-db:
+    # If you are using a Raspberry Pi, use mongo:4.4.18
+    image: mongo:4
+    logging:
+      driver: "none"
+    container_name: mongo-db
+    restart: always
