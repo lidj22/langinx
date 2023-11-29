@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+
+  web:
+    build:
+      context: web
+      dockerfile: Dockerfile
+    restart: "unless-stopped"
+    container_name: web
+    ports:
+      - 443:443
+    volumes:
+      - /certs/staging:/certs/staging:ro
+  
+  nextcloud-db:
+    image: mariadb:10.6
+    container_name: nextcloud-db
+    restart: "unless-stopped"
+    command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_PASSWORD=msqpass
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+
+  nextcloud:
+    image: nextcloud
+    container_name: nextcloud
+    restart: "unless-stopped"
+    links:
+      - nextcloud-db
+    environment:
+      - MYSQL_PASSWORD=msqpass
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_HOST=nextcloud-db
+      - OVERWRITEPROTOCOL=https
