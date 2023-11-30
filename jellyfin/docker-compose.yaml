@@ -16,8 +16,8 @@ services:
     image: jellyfin/jellyfin
     container_name: jellyfin
     restart: 'unless-stopped'
-    ports:
-      - 8096:8096
+    # ports:
+    #   - 8096:8096
     
     environment:
       - JELLYFIN_PublishedServerUrl=http://jellyfin
