@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+
+  web:
+    build:
+      context: web
+      dockerfile: Dockerfile
+    restart: "unless-stopped"
+    container_name: web
+    ports:
+      - 5000:5000
+    volumes:
+      - /certs/staging:/certs/staging:ro
+
+  registry:
+    image: registry:2
+    # ports:
+    #   - 5000:5000
