@@ -3,6 +3,7 @@
 ```sh
 docker compose up --build
 ```
+During gitea configuration, set the server domain/hostname to `gitea`.
 
 Required certs:
 ```
