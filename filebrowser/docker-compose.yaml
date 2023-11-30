@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+
+  web:
+    build:
+      context: web
+      dockerfile: Dockerfile
+    restart: "unless-stopped"
+    container_name: web
+    ports:
+      - 443:443
+    volumes:
+      - /certs/staging:/certs/staging:ro
+
+  filebrowser:
+    image: filebrowser/filebrowser
+    container_name: filebrowser
+    # volumes:
+    #   - /path/to/root:/srv
