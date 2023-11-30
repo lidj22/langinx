@@ -1,4 +1,4 @@
-# Qbittorrent
+# [Qbittorrent](https://github.com/linuxserver/docker-qbittorrent)
 
 ```sh
 docker compose up --build

@@ -1,4 +1,4 @@
-# Jellyfin LAN
+# [Jellyfin](https://jellyfin.org)
 
 ```sh
 docker compose up --build

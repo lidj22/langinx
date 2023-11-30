@@ -1,4 +1,4 @@
-# YoutubeDL-Material
+# [Gitea](https://about.gitea.com)
 
 ```sh
 docker compose up --build
