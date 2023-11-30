@@ -24,15 +24,22 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
 
+  # nextcloud-redis:
+  #   image: redis:alpine
+  #   container_name: nextcloud-redis
+  #   restart: "unless-stopped"
+
   nextcloud:
     image: nextcloud
     container_name: nextcloud
     restart: "unless-stopped"
-    links:
+    depends_on:
       - nextcloud-db
+      # - nextcloud-redis
     environment:
       - MYSQL_PASSWORD=msqpass
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=nextcloud-db
+      # - REDIS_HOST=nextcloud-redis
       - OVERWRITEPROTOCOL=https
